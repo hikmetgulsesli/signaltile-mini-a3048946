@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Record Operations - SignalTile Mini</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <style>
+      .ops-toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-unit-4, 1rem);
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: var(--spacing-unit-4, 1rem);
+      }
+
+      .ops-search {
+        flex: 1 1 240px;
+      }
+
+      .ops-search .input {
+        width: 100%;
+        padding: var(--spacing-unit-2, 0.5rem) var(--spacing-unit-3, 0.75rem);
+        font-family: inherit;
+        font-size: 14px;
+        line-height: 20px;
+        border: 1px solid var(--color-outline-variant, #c6c6cd);
+        border-radius: var(--radius-DEFAULT, 0.125rem);
+        background: var(--color-surface, #ffffff);
+        color: var(--color-on-surface, #191c1e);
+      }
+
+      .ops-search .input:focus {
+        outline: none;
+        border-color: var(--color-on-surface, #191c1e);
+        box-shadow: 0 0 0 2px rgba(25, 28, 30, 0.08);
+      }
+
+      .ops-actions {
+        display: flex;
+        gap: var(--spacing-unit-2, 0.5rem);
+        flex-wrap: wrap;
+      }
+
+      .ops-summary {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: var(--spacing-unit-4, 1rem);
+        margin-bottom: var(--spacing-unit-4, 1rem);
+      }
+
+      .metric-card {
+        background: var(--color-surface, #ffffff);
+        border: 1px solid var(--color-outline-variant, #c6c6cd);
+        border-radius: var(--radius-lg, 0.25rem);
+        padding: var(--spacing-unit-3, 0.75rem);
+      }
+
+      .metric-label {
+        display: block;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: var(--color-on-surface-variant, #45464d);
+      }
+
+      .metric-value {
+        display: block;
+        font-family: var(--font-label-mono, "JetBrains Mono"), monospace;
+        font-size: 18px;
+        font-weight: 600;
+        margin-top: var(--spacing-unit-1, 0.25rem);
+      }
+
+      .records-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: var(--color-surface, #ffffff);
+        border: 1px solid var(--color-outline-variant, #c6c6cd);
+        border-radius: var(--radius-lg, 0.25rem);
+        margin-bottom: var(--spacing-unit-4, 1rem);
+        overflow: hidden;
+      }
+
+      .records-table th,
+      .records-table td {
+        padding: var(--spacing-unit-3, 0.75rem);
+        text-align: left;
+        border-bottom: 1px solid var(--color-outline-variant, #c6c6cd);
+        font-size: 14px;
+      }
+
+      .records-table th {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: var(--color-on-surface-variant, #45464d);
+        background: var(--color-surface-container-low, #f2f4f6);
+      }
+
+      .records-table tr:last-child td {
+        border-bottom: none;
+      }
+
+      .status-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: var(--spacing-unit-1, 0.25rem) var(--spacing-unit-2, 0.5rem);
+        border-radius: var(--radius-md, 0.375rem);
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .status-badge.status-ok {
+        background: rgba(16, 185, 129, 0.1);
+        color: #059669;
+      }
+
+      .status-badge.status-warn {
+        background: rgba(245, 158, 11, 0.1);
+        color: #d97706;
+      }
+
+      .status-badge.status-down {
+        background: rgba(244, 63, 94, 0.1);
+        color: #e11d48;
+      }
+
+      .empty-state {
+        text-align: center;
+        color: var(--color-on-surface-variant, #45464d);
+        padding: var(--spacing-unit-6, 1.5rem);
+      }
+
+      .ops-pagination {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--spacing-unit-4, 1rem);
+      }
+
+      .page-info {
+        font-size: 14px;
+        color: var(--color-on-surface-variant, #45464d);
+      }
+    </style>
+  </head>
+  <body>
+    <main data-setfarm-root="record-operations" data-testid="setfarm-app-root" class="app-shell">
+      <header class="app-header">
+        <h1>SignalTile Mini</h1>
+        <nav class="app-nav" aria-label="Primary">
+          <a href="record-operations-signaltile-mini.html" data-action-id="nav-operations">Operations</a>
+          <a href="record-editor-signaltile-mini.html" data-action-id="nav-editor">Editor</a>
+          <a href="index.html#insights" data-action-id="nav-insights">Insights</a>
+          <a href="index.html#support" data-action-id="nav-support">Support</a>
+          <a href="index.html#documentation" data-action-id="nav-documentation">Documentation</a>
+        </nav>
+      </header>
+
+      <section class="app-body">
+        <div id="status-banner" class="status-banner" role="status" aria-live="polite"></div>
+
+        <section class="ops-toolbar" aria-label="Record operations toolbar">
+          <div class="ops-search">
+            <input
+              id="search-records"
+              type="text"
+              class="input"
+              placeholder="Search Records..."
+              aria-label="Search Records"
+              data-action-id="ACT_SEARCH_RECORDS"
+            />
+          </div>
+          <div class="ops-actions">
+            <button type="button" class="btn btn-secondary" data-action-id="ACT_NOTIFICATIONS">notifications</button>
+            <button type="button" class="btn btn-secondary" data-action-id="ACT_SETTINGS">settings</button>
+            <button type="button" class="btn btn-primary" data-action-id="ACT_CREATE_RECORD">CREATE RECORD</button>
+            <button type="button" class="btn btn-secondary" data-action-id="ACT_FILTER_RECORDS">FILTER</button>
+            <button type="button" class="btn btn-secondary" data-action-id="ACT_SORT_RECORDS">sort</button>
+            <button type="button" class="btn btn-secondary" data-action-id="ACT_RETRY_LOAD">Retry Load</button>
+          </div>
+        </section>
+
+        <section class="ops-summary" aria-label="Record summary">
+          <div class="metric-card">
+            <span class="metric-label">Total</span>
+            <span id="metric-total" class="metric-value">0</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">OK</span>
+            <span id="metric-ok" class="metric-value">0</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Warn</span>
+            <span id="metric-warn" class="metric-value">0</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Down</span>
+            <span id="metric-down" class="metric-value">0</span>
+          </div>
+        </section>
+
+        <section class="ops-list" aria-label="Records">
+          <table class="records-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Tags</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="records-body">
+              <!-- Rows rendered by operations.js -->
+            </tbody>
+          </table>
+        </section>
+
+        <nav class="ops-pagination" aria-label="Record pagination">
+          <button type="button" class="btn btn-secondary" data-action-id="ACT_PAGE_PREV">PREV</button>
+          <span id="page-info" class="page-info">Page 1 of 1</span>
+          <button type="button" class="btn btn-secondary" data-action-id="ACT_PAGE_NEXT">NEXT</button>
+        </nav>
+      </section>
+    </main>
+
+    <script src="assets/js/us-002/act_create_record.js" defer></script>
+    <script src="assets/js/us-002/act_search_records.js" defer></script>
+    <script src="assets/js/us-002/act_select_record.js" defer></script>
+    <script src="assets/js/us-002/act_retry_load.js" defer></script>
+    <script>
+      (function () {
+        'use strict';
+
+        function $(selector) { return document.querySelector(selector); }
+        function escapeHtml(text) {
+          var div = document.createElement('div');
+          div.textContent = text;
+          return div.innerHTML;
+        }
+
+        function render() {
+          if (!window.SignalTileRecords) return;
+          var state = window.SignalTileRecords.getState();
+          var records = window.SignalTileRecords.getPagedRecords();
+          var totalPages = window.SignalTileRecords.getTotalPages();
+
+          $('#metric-total').textContent = state.records.length;
+          $('#metric-ok').textContent = state.records.filter(function (r) { return r.status === 'ok'; }).length;
+          $('#metric-warn').textContent = state.records.filter(function (r) { return r.status === 'warn'; }).length;
+          $('#metric-down').textContent = state.records.filter(function (r) { return r.status === 'down'; }).length;
+
+          var tbody = $('#records-body');
+          if (records.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="4" class="empty-state">No records found.</td></tr>';
+          } else {
+            tbody.innerHTML = records.map(function (r) {
+              return (
+                '<tr data-record-id="' + escapeHtml(r.id) + '">' +
+                  '<td>' + escapeHtml(r.name) + '</td>' +
+                  '<td><span class="status-badge status-' + escapeHtml(r.status) + '">' + escapeHtml(r.status) + '</span></td>' +
+                  '<td>' + escapeHtml(r.tags || '') + '</td>' +
+                  '<td>' +
+                    '<button type="button" class="btn btn-secondary" data-action-id="ACT_SELECT_RECORD" data-record-id="' + escapeHtml(r.id) + '">Edit</button>' +
+                    '<button type="button" class="btn btn-secondary" data-action-id="ACT_CYCLE_RECORD" data-record-id="' + escapeHtml(r.id) + '">Cycle</button>' +
+                  '</td>' +
+                '</tr>'
+              );
+            }).join('');
+          }
+
+          $('#page-info').textContent = 'Page ' + (state.page + 1) + ' of ' + totalPages;
+
+          var banner = $('#status-banner');
+          if (state.loadError) {
+            banner.textContent = state.loadError;
+            banner.className = 'status-banner status-banner--error';
+          } else {
+            banner.textContent = '';
+            banner.className = 'status-banner';
+          }
+        }
+
+        function bind() {
+          document.body.addEventListener('click', function (event) {
+            var target = event.target;
+            var actionId = target && target.getAttribute('data-action-id');
+            if (!actionId) return;
+
+            if (actionId === 'ACT_CREATE_RECORD') {
+              event.preventDefault();
+              window.SignalTileRecords.selectRecord(null);
+              location.href = 'record-editor-signaltile-mini.html?mode=create';
+              return;
+            }
+
+            if (actionId === 'ACT_SELECT_RECORD') {
+              event.preventDefault();
+              var recordId = target.getAttribute('data-record-id');
+              window.SignalTileActions.selectRecord(recordId);
+              location.href = 'record-editor-signaltile-mini.html?mode=edit&id=' + encodeURIComponent(recordId);
+              return;
+            }
+
+            if (actionId === 'ACT_CYCLE_RECORD') {
+              event.preventDefault();
+              var cycleId = target.getAttribute('data-record-id');
+              window.SignalTileRecords.cycleRecordStatus(cycleId);
+              render();
+              return;
+            }
+
+            if (actionId === 'ACT_RETRY_LOAD') {
+              event.preventDefault();
+              window.SignalTileActions.retryLoad();
+              render();
+              return;
+            }
+
+            if (actionId === 'ACT_NOTIFICATIONS' || actionId === 'ACT_SETTINGS' || actionId === 'ACT_FILTER_RECORDS') {
+              event.preventDefault();
+              var banner = $('#status-banner');
+              banner.textContent = actionId.replace('ACT_', '').toLowerCase() + ' clicked';
+              banner.className = 'status-banner';
+              return;
+            }
+
+            if (actionId === 'ACT_PAGE_PREV') {
+              event.preventDefault();
+              window.SignalTileRecords.setPage(window.SignalTileRecords.getState().page - 1);
+              render();
+              return;
+            }
+
+            if (actionId === 'ACT_PAGE_NEXT') {
+              event.preventDefault();
+              window.SignalTileRecords.setPage(window.SignalTileRecords.getState().page + 1);
+              render();
+              return;
+            }
+          });
+
+          var searchInput = $('#search-records');
+          if (searchInput) {
+            searchInput.addEventListener('input', function () {
+              window.SignalTileActions.searchRecords(searchInput.value);
+              render();
+            });
+          }
+        }
+
+        function init() {
+          render();
+          bind();
+
+          window.app = {
+            getState: function () {
+              return window.SignalTileRecords ? window.SignalTileRecords.getState() : {};
+            },
+            createRecord: function (data) { return window.SignalTileActions.createRecord(data); },
+            selectRecord: function (id) { return window.SignalTileActions.selectRecord(id); },
+            searchRecords: function (q) { return window.SignalTileActions.searchRecords(q); },
+            retryLoad: function () { return window.SignalTileActions.retryLoad(); }
+          };
+
+          window.setfarmStaticReady = true;
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+      })();
+    </script>
+  </body>
+</html>
