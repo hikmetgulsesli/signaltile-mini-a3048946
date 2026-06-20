@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Insights - SignalTile Mini</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <style>
+      .insights-toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--spacing-unit-4, 1rem);
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: var(--spacing-unit-4, 1rem);
+      }
+
+      .insights-actions {
+        display: flex;
+        gap: var(--spacing-unit-2, 0.5rem);
+        flex-wrap: wrap;
+      }
+
+      .insights-summary {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: var(--spacing-unit-4, 1rem);
+        margin-bottom: var(--spacing-unit-4, 1rem);
+      }
+
+      .metric-card {
+        background: var(--color-surface, #ffffff);
+        border: 1px solid var(--color-outline-variant, #c6c6c6);
+        border-radius: var(--radius-lg, 0.25rem);
+        padding: var(--spacing-unit-3, 0.75rem);
+      }
+
+      .metric-label {
+        display: block;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: var(--color-on-surface-variant, #45464d);
+      }
+
+      .metric-value {
+        display: block;
+        font-family: var(--font-label-mono, "JetBrains Mono"), monospace;
+        font-size: 18px;
+        font-weight: 600;
+        margin-top: var(--spacing-unit-1, 0.25rem);
+      }
+
+      .insights-panel {
+        background: var(--color-surface, #ffffff);
+        border: 1px solid var(--color-outline-variant, #c6c6c6);
+        border-radius: var(--radius-lg, 0.25rem);
+        padding: var(--spacing-unit-4, 1rem);
+        margin-bottom: var(--spacing-unit-4, 1rem);
+      }
+
+      .insights-panel h2 {
+        margin: 0 0 var(--spacing-unit-4, 1rem);
+        font-family: var(--font-headline-md, Geist), sans-serif;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 24px;
+      }
+
+      .filter-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: var(--spacing-unit-1, 0.25rem) var(--spacing-unit-2, 0.5rem);
+        border-radius: var(--radius-md, 0.375rem);
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        background: var(--color-surface-container, #eceef0);
+        color: var(--color-on-surface-variant, #45464d);
+      }
+
+      .activity-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .activity-table th,
+      .activity-table td {
+        padding: var(--spacing-unit-3, 0.75rem);
+        text-align: left;
+        border-bottom: 1px solid var(--color-outline-variant, #c6c6c6);
+        font-size: 14px;
+      }
+
+      .activity-table th {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: var(--color-on-surface-variant, #45464d);
+        background: var(--color-surface-container-low, #f2f4f6);
+      }
+
+      .activity-table tr:last-child td {
+        border-bottom: none;
+      }
+
+      .status-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: var(--spacing-unit-1, 0.25rem) var(--spacing-unit-2, 0.5rem);
+        border-radius: var(--radius-md, 0.375rem);
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .status-badge.status-ok {
+        background: rgba(16, 185, 129, 0.1);
+        color: #059669;
+      }
+
+      .status-badge.status-warn {
+        background: rgba(245, 158, 11, 0.1);
+        color: #d97706;
+      }
+
+      .status-badge.status-down {
+        background: rgba(244, 63, 94, 0.1);
+        color: #e11d48;
+      }
+
+      .empty-state {
+        text-align: center;
+        color: var(--color-on-surface-variant, #45464d);
+        padding: var(--spacing-unit-6, 1.5rem);
+      }
+
+      .insights-export {
+        background: var(--color-surface-container-low, #f2f4f6);
+        border: 1px solid var(--color-outline-variant, #c6c6c6);
+        border-radius: var(--radius-lg, 0.25rem);
+        padding: var(--spacing-unit-3, 0.75rem);
+        font-family: var(--font-label-mono, "JetBrains Mono"), monospace;
+        font-size: 12px;
+        line-height: 16px;
+        max-height: 320px;
+        overflow: auto;
+        white-space: pre-wrap;
+        margin-bottom: var(--spacing-unit-4, 1rem);
+      }
+
+      .insights-bottom-actions {
+        display: flex;
+        gap: var(--spacing-unit-2, 0.5rem);
+        flex-wrap: wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <main data-setfarm-root="insights" data-testid="setfarm-app-root" class="app-shell">
+      <header class="app-header">
+        <h1>SignalTile Mini</h1>
+        <nav class="app-nav" aria-label="Primary">
+          <a href="record-operations-signaltile-mini.html" data-action-id="ACT_OPERATIONS">Operations</a>
+          <a href="record-editor-signaltile-mini.html" data-action-id="ACT_EDITOR">Editor</a>
+          <a href="insights-signaltile-mini.html" data-action-id="ACT_INSIGHTS">Insights</a>
+          <a href="index.html#support" data-action-id="ACT_SUPPORT">Support</a>
+          <a href="index.html#documentation" data-action-id="ACT_DOCUMENTATION">Documentation</a>
+        </nav>
+      </header>
+
+      <section class="app-body">
+        <div id="status-banner" class="status-banner" role="status" aria-live="polite"></div>
+
+        <section class="insights-toolbar" aria-label="Insights toolbar">
+          <div>
+            <span class="filter-badge" id="active-filter">Filter: all</span>
+          </div>
+          <div class="insights-actions">
+            <button type="button" class="btn btn-secondary" data-action-id="ACT_FILTER_INSIGHTS">Filter</button>
+            <button type="button" class="btn btn-primary" data-action-id="ACT_EXPORT_SUMMARY">Export Summary</button>
+          </div>
+        </section>
+
+        <section class="insights-summary" aria-label="Insights summary">
+          <div class="metric-card">
+            <span class="metric-label">Total</span>
+            <span id="metric-total" class="metric-value">0</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">OK</span>
+            <span id="metric-ok" class="metric-value">0</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Warn</span>
+            <span id="metric-warn" class="metric-value">0</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Down</span>
+            <span id="metric-down" class="metric-value">0</span>
+          </div>
+        </section>
+
+        <section class="insights-panel" aria-labelledby="activity-title">
+          <h2 id="activity-title">Recent Activity</h2>
+          <table class="activity-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Tags</th>
+                <th>Updated</th>
+              </tr>
+            </thead>
+            <tbody id="activity-body">
+              <!-- Rows rendered by insights.js -->
+            </tbody>
+          </table>
+        </section>
+
+        <pre id="insights-export-output" class="insights-export" aria-live="polite"></pre>
+
+        <section class="insights-bottom-actions" aria-label="Insights footer actions">
+          <button type="button" class="btn btn-primary" data-action-id="ACT_VIEW_OPERATIONS">View Operations</button>
+          <button type="button" class="btn btn-secondary" data-action-id="ACT_MORE_INSIGHTS" aria-label="More options">more_horiz</button>
+        </section>
+      </section>
+    </main>
+
+    <script src="assets/js/us-002/act_create_record.js" defer></script>
+    <script src="assets/js/us-003/act_filter_insights.js" defer></script>
+    <script src="assets/js/us-003/act_export_summary.js" defer></script>
+    <script>
+      (function () {
+        'use strict';
+
+        function $(selector) { return document.querySelector(selector); }
+
+        function escapeHtml(text) {
+          var div = document.createElement('div');
+          div.textContent = text;
+          return div.innerHTML;
+        }
+
+        function formatDate(timestamp) {
+          if (!timestamp) return '-';
+          var date = new Date(timestamp);
+          if (isNaN(date.getTime())) return '-';
+          return date.toLocaleString();
+        }
+
+        function getFilter() {
+          return (window.SignalTileInsightsState && window.SignalTileInsightsState.filter) || 'all';
+        }
+
+        function getRecords() {
+          if (window.SignalTileRecords) {
+            return window.SignalTileRecords.getState().records || [];
+          }
+          return [];
+        }
+
+        function render() {
+          var records = getRecords();
+          var filter = getFilter();
+
+          var counts = { ok: 0, warn: 0, down: 0 };
+          records.forEach(function (r) {
+            if (counts[r.status] != null) {
+              counts[r.status] += 1;
+            }
+          });
+
+          $('#metric-total').textContent = records.length;
+          $('#metric-ok').textContent = counts.ok;
+          $('#metric-warn').textContent = counts.warn;
+          $('#metric-down').textContent = counts.down;
+
+          $('#active-filter').textContent = 'Filter: ' + filter;
+
+          var filtered = records;
+          if (filter !== 'all') {
+            filtered = records.filter(function (r) { return r.status === filter; });
+          }
+
+          var tbody = $('#activity-body');
+          if (filtered.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="4" class="empty-state">No records match the current filter.</td></tr>';
+          } else {
+            var sorted = filtered.slice().sort(function (a, b) {
+              return (b.updatedAt || 0) - (a.updatedAt || 0);
+            });
+            tbody.innerHTML = sorted.map(function (r) {
+              return (
+                '<tr data-record-id="' + escapeHtml(r.id) + '">' +
+                  '<td>' + escapeHtml(r.name) + '</td>' +
+                  '<td><span class="status-badge status-' + escapeHtml(r.status) + '">' + escapeHtml(r.status) + '</span></td>' +
+                  '<td>' + escapeHtml(r.tags || '') + '</td>' +
+                  '<td>' + escapeHtml(formatDate(r.updatedAt)) + '</td>' +
+                '</tr>'
+              );
+            }).join('');
+          }
+        }
+
+        function renderStatus(message, isError) {
+          var banner = $('#status-banner');
+          if (message) {
+            banner.textContent = message;
+            banner.className = isError ? 'status-banner status-banner--error' : 'status-banner';
+          } else {
+            banner.textContent = '';
+            banner.className = 'status-banner';
+          }
+        }
+
+        function bind() {
+          document.body.addEventListener('click', function (event) {
+            var target = event.target.closest('[data-action-id]');
+            var actionId = target && target.getAttribute('data-action-id');
+            if (!actionId) return;
+
+            if (actionId === 'ACT_FILTER_INSIGHTS') {
+              event.preventDefault();
+              if (window.SignalTileActions && window.SignalTileActions.filterInsights) {
+                window.SignalTileActions.filterInsights();
+              }
+              render();
+              renderStatus('Filter set to ' + getFilter());
+              return;
+            }
+
+            if (actionId === 'ACT_EXPORT_SUMMARY') {
+              event.preventDefault();
+              if (window.SignalTileActions && window.SignalTileActions.exportInsightsSummary) {
+                var summary = window.SignalTileActions.exportInsightsSummary();
+                $('#insights-export-output').textContent = JSON.stringify(summary, null, 2);
+                renderStatus('Insights summary exported');
+              }
+              return;
+            }
+
+            if (actionId === 'ACT_VIEW_OPERATIONS') {
+              event.preventDefault();
+              window.location.href = 'record-operations-signaltile-mini.html';
+              return;
+            }
+
+            if (actionId === 'ACT_MORE_INSIGHTS') {
+              event.preventDefault();
+              renderStatus('More options menu opened');
+              return;
+            }
+          });
+        }
+
+        function init() {
+          window.SignalTileInsightsRender = render;
+          render();
+          bind();
+
+          window.app = {
+            getState: function () {
+              return {
+                filter: getFilter(),
+                records: getRecords()
+              };
+            },
+            filterInsights: function (criteria) {
+              if (window.SignalTileActions && window.SignalTileActions.filterInsights) {
+                return window.SignalTileActions.filterInsights(criteria);
+              }
+              return null;
+            },
+            exportInsightsSummary: function () {
+              if (window.SignalTileActions && window.SignalTileActions.exportInsightsSummary) {
+                return window.SignalTileActions.exportInsightsSummary();
+              }
+              return null;
+            }
+          };
+
+          window.setfarmStaticReady = true;
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+      })();
+    </script>
+  </body>
+</html>
