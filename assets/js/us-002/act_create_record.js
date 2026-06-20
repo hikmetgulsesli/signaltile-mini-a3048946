@@ -30,11 +30,9 @@
       if (!raw) return clone(DEFAULT_RECORDS);
       var parsed = JSON.parse(raw);
       if (!Array.isArray(parsed)) throw new Error('Invalid records shape');
-      var isValid = parsed.every(function (r) {
-        return r && typeof r === 'object' && typeof r.id === 'string' && typeof r.name === 'string';
+      return parsed.filter(function (r) {
+        return r && typeof r === 'object' && typeof r.id === 'string';
       });
-      if (!isValid) throw new Error('Invalid record entries');
-      return parsed;
     } catch (err) {
       return clone(DEFAULT_RECORDS);
     }

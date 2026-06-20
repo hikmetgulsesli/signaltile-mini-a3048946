@@ -186,9 +186,11 @@
           search.slice(1).split('&').forEach(function (pair) {
             var parts = pair.split('=');
             try {
-              params[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1] || '');
-            } catch (err) {
-              // Skip malformed parameter pairs.
+              var key = decodeURIComponent(parts[0]);
+              var val = decodeURIComponent(parts[1] || '');
+              params[key] = val;
+            } catch (e) {
+              // Ignore malformed parameters
             }
           });
           return params;
