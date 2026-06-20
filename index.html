@@ -8,12 +8,34 @@
   </head>
   <body>
     <main data-setfarm-root="baseline" data-testid="setfarm-app-root" class="app-shell">
-      <section class="hero">
-        <p class="eyebrow">Setfarm Static HTML</p>
+      <header class="app-header">
         <h1>SignalTile Mini</h1>
-        <p class="summary">Baseline static page ready for plain HTML, CSS, and JavaScript implementation.</p>
+        <nav class="app-nav" aria-label="Primary">
+          <a href="#operations" data-action-id="nav-operations">Operations</a>
+          <a href="#editor" data-action-id="nav-editor">Editor</a>
+          <a href="#insights" data-action-id="nav-insights">Insights</a>
+          <a href="#support" data-action-id="nav-support">Support</a>
+          <a href="#documentation" data-action-id="nav-documentation">Documentation</a>
+        </nav>
+      </header>
+
+      <section class="app-body">
+        <div id="status-banner" class="status-banner" role="status" aria-live="polite"></div>
+
+        <section id="tile-panel" class="tile-panel" aria-label="Signal tiles">
+          <!-- Tiles are rendered by app.js -->
+        </section>
+
+        <section class="app-actions">
+          <button type="button" class="btn btn-primary" data-action-id="export-summary">Export JSON snapshot</button>
+        </section>
+
+        <pre id="snapshot-output" class="snapshot-output" aria-live="polite"></pre>
       </section>
     </main>
+
+    <script src="assets/js/signaltile-mini.state.js" defer></script>
+    <script src="assets/js/signaltile-mini.storage.js" defer></script>
     <script src="assets/js/app.js" defer></script>
     <script src="assets/js/test-bridge.js" defer></script>
   </body>

@@ -1,0 +1,24 @@
+{
+  "tiles": [
+    {
+      "id": "api-gateway",
+      "label": "API Gateway",
+      "status": "ok"
+    },
+    {
+      "id": "database",
+      "label": "Database",
+      "status": "ok"
+    },
+    {
+      "id": "message-queue",
+      "label": "Message Queue",
+      "status": "warn"
+    },
+    {
+      "id": "worker-pool",
+      "label": "Worker Pool",
+      "status": "down"
+    }
+  ]
+}
