@@ -1,0 +1,29 @@
+[
+  {
+    "screenId": "8db667c582654fbfa4664aeabe774440",
+    "name": "Record Editor - SignalTile Mini",
+    "type": "form",
+    "description": "Record Editor - SignalTile Mini screen",
+    "surfaceIds": [
+      "SURF_RECORD_EDITOR"
+    ]
+  },
+  {
+    "screenId": "cc3f7c566a1540c8aee0c268145b0aeb",
+    "name": "Record Operations - SignalTile Mini",
+    "type": "app-screen",
+    "description": "Record Operations - SignalTile Mini screen",
+    "surfaceIds": [
+      "SURF_RECORD_OPERATIONS"
+    ]
+  },
+  {
+    "screenId": "9b3e7787c870423ab2bd2d87bdc8435b",
+    "name": "Insights - SignalTile Mini",
+    "type": "app-screen",
+    "description": "Insights - SignalTile Mini screen",
+    "surfaceIds": [
+      "SURF_INSIGHTS"
+    ]
+  }
+]

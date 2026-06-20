@@ -1,0 +1,35 @@
+[
+  {
+    "screenId": "8db667c582654fbfa4664aeabe774440",
+    "title": "Record Editor - SignalTile Mini",
+    "htmlFile": "8db667c582654fbfa4664aeabe774440.html",
+    "deviceType": "DESKTOP",
+    "htmlUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ6Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpZCiVodG1sXzYwNDAzMGM2OWEzMzRhNDdiYWMzN2Q3ZDAwY2U3MjAxEgsSBxCN19Wi9xcYAZIBIgoKcHJvamVjdF9pZBIUQhI5NTkwMDQwNTI5NTYxOTIwODg&filename=&opi=96797242",
+    "localHtml": "/Users/setrox/projects/signaltile-mini-a3048946/stitch/8db667c582654fbfa4664aeabe774440.html",
+    "surfaceIds": [
+      "SURF_RECORD_EDITOR"
+    ]
+  },
+  {
+    "screenId": "cc3f7c566a1540c8aee0c268145b0aeb",
+    "title": "Record Operations - SignalTile Mini",
+    "htmlFile": "cc3f7c566a1540c8aee0c268145b0aeb.html",
+    "deviceType": "DESKTOP",
+    "htmlUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ6Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpZCiVodG1sXzViOGYwODU1MWYzNDRhODJhNjExODY1MGQ5NzMzNTYzEgsSBxCN19Wi9xcYAZIBIgoKcHJvamVjdF9pZBIUQhI5NTkwMDQwNTI5NTYxOTIwODg&filename=&opi=96797242",
+    "localHtml": "/Users/setrox/projects/signaltile-mini-a3048946/stitch/cc3f7c566a1540c8aee0c268145b0aeb.html",
+    "surfaceIds": [
+      "SURF_RECORD_OPERATIONS"
+    ]
+  },
+  {
+    "screenId": "9b3e7787c870423ab2bd2d87bdc8435b",
+    "title": "Insights - SignalTile Mini",
+    "htmlFile": "9b3e7787c870423ab2bd2d87bdc8435b.html",
+    "deviceType": "DESKTOP",
+    "htmlUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ6Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpZCiVodG1sXzNlMjc1OTc4MzBmNjQxZmU5Njg3OTZmMDEwNjljYjdmEgsSBxCN19Wi9xcYAZIBIgoKcHJvamVjdF9pZBIUQhI5NTkwMDQwNTI5NTYxOTIwODg&filename=&opi=96797242",
+    "localHtml": "/Users/setrox/projects/signaltile-mini-a3048946/stitch/9b3e7787c870423ab2bd2d87bdc8435b.html",
+    "surfaceIds": [
+      "SURF_INSIGHTS"
+    ]
+  }
+]
