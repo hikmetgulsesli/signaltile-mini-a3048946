@@ -14,8 +14,10 @@
     var state = window.SignalTileInsightsState;
     var current = state.filter || 'all';
 
-    if (criteria && FILTERS.indexOf(criteria) !== -1) {
-      state.filter = criteria;
+    if (criteria !== undefined) {
+      if (FILTERS.indexOf(criteria) !== -1) {
+        state.filter = criteria;
+      }
     } else {
       var nextIndex = (FILTERS.indexOf(current) + 1) % FILTERS.length;
       state.filter = FILTERS[nextIndex];

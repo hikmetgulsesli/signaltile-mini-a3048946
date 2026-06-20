@@ -16,8 +16,9 @@
 
   window.SignalTileActions.exportInsightsSummary = function () {
     var records = [];
-    if (window.SignalTileRecords) {
-      records = clone(window.SignalTileRecords.getState().records);
+    if (window.SignalTileRecords && typeof window.SignalTileRecords.getState === 'function') {
+      var state = window.SignalTileRecords.getState();
+      records = clone((state && state.records) || []);
     }
 
     var counts = { ok: 0, warn: 0, down: 0 };

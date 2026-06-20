@@ -241,9 +241,13 @@
         function $(selector) { return document.querySelector(selector); }
 
         function escapeHtml(text) {
-          var div = document.createElement('div');
-          div.textContent = text;
-          return div.innerHTML;
+          if (text === null || text === undefined) return '';
+          return String(text)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
         }
 
         function formatDate(timestamp) {
@@ -258,8 +262,9 @@
         }
 
         function getRecords() {
-          if (window.SignalTileRecords) {
-            return window.SignalTileRecords.getState().records || [];
+          if (window.SignalTileRecords && typeof window.SignalTileRecords.getState === 'function') {
+            var state = window.SignalTileRecords.getState();
+            return (state && state.records) || [];
           }
           return [];
         }
@@ -329,7 +334,6 @@
               if (window.SignalTileActions && window.SignalTileActions.filterInsights) {
                 window.SignalTileActions.filterInsights();
               }
-              render();
               renderStatus('Filter set to ' + getFilter());
               return;
             }
