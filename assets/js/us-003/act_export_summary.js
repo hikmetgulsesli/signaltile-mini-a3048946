@@ -18,7 +18,9 @@
     var records = [];
     if (window.SignalTileRecords && typeof window.SignalTileRecords.getState === 'function') {
       var state = window.SignalTileRecords.getState();
-      records = clone((state && state.records) || []);
+      if (state && Array.isArray(state.records)) {
+        records = clone(state.records);
+      }
     }
 
     var counts = { ok: 0, warn: 0, down: 0 };
