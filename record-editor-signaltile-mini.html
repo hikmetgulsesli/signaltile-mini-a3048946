@@ -185,7 +185,11 @@
           if (!search) return params;
           search.slice(1).split('&').forEach(function (pair) {
             var parts = pair.split('=');
-            params[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1] || '');
+            try {
+              params[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1] || '');
+            } catch (err) {
+              // Skip malformed parameter pairs.
+            }
           });
           return params;
         }
@@ -264,6 +268,9 @@
         }
 
         function cancel() {
+          if (isDirty && !confirm('You have unsaved changes. Are you sure you want to cancel?')) {
+            return;
+          }
           window.SignalTileActions.cancelEdit();
           clearDirty();
           window.location.href = 'record-operations-signaltile-mini.html';
@@ -286,8 +293,9 @@
           var form = $('#record-form');
           form.addEventListener('submit', function (event) {
             event.preventDefault();
-            save();
-            window.location.href = 'record-operations-signaltile-mini.html';
+            if (save()) {
+              window.location.href = 'record-operations-signaltile-mini.html';
+            }
           });
 
           $('#record-name').addEventListener('input', markDirty);
@@ -296,7 +304,7 @@
           $('#record-tags').addEventListener('input', markDirty);
 
           document.body.addEventListener('click', function (event) {
-            var target = event.target;
+            var target = event.target.closest('[data-action-id]');
             var actionId = target && target.getAttribute('data-action-id');
             if (actionId === 'ACT_CANCEL_EDIT' || actionId === 'ACT_CANCEL_EDIT_TOP') {
               event.preventDefault();
@@ -304,8 +312,9 @@
             }
             if (actionId === 'ACT_SAVE_RECORD_TOP') {
               event.preventDefault();
-              save();
-              window.location.href = 'record-operations-signaltile-mini.html';
+              if (save()) {
+                window.location.href = 'record-operations-signaltile-mini.html';
+              }
             }
           });
         }

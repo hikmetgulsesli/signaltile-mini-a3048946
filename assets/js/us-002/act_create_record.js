@@ -30,6 +30,10 @@
       if (!raw) return clone(DEFAULT_RECORDS);
       var parsed = JSON.parse(raw);
       if (!Array.isArray(parsed)) throw new Error('Invalid records shape');
+      var isValid = parsed.every(function (r) {
+        return r && typeof r === 'object' && typeof r.id === 'string' && typeof r.name === 'string';
+      });
+      if (!isValid) throw new Error('Invalid record entries');
       return parsed;
     } catch (err) {
       return clone(DEFAULT_RECORDS);
@@ -92,10 +96,11 @@
   function updateRecord(id, data) {
     var record = recordsState.records.find(function (r) { return r.id === id; });
     if (!record) return null;
-    if (data.name !== undefined) record.name = data.name;
-    if (data.description !== undefined) record.description = data.description;
-    if (data.status !== undefined) record.status = data.status;
-    if (data.tags !== undefined) record.tags = data.tags;
+    var safeData = data || {};
+    if (safeData.name !== undefined) record.name = safeData.name;
+    if (safeData.description !== undefined) record.description = safeData.description;
+    if (safeData.status !== undefined) record.status = safeData.status;
+    if (safeData.tags !== undefined) record.tags = safeData.tags;
     record.updatedAt = Date.now();
     saveRecords(recordsState.records);
     return clone(record);
