@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Record Editor - SignalTile Mini</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <style>
+      .editor-card {
+        background: var(--color-surface, #ffffff);
+        border: 1px solid var(--color-outline-variant, #c6c6cd);
+        border-radius: var(--radius-lg, 0.25rem);
+        padding: var(--spacing-unit-6, 1.5rem);
+        max-width: 640px;
+      }
+
+      .editor-card h2 {
+        margin: 0 0 var(--spacing-unit-4, 1rem);
+        font-family: var(--font-headline-md, Geist), sans-serif;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 24px;
+      }
+
+      .form-group {
+        margin-bottom: var(--spacing-unit-4, 1rem);
+      }
+
+      .form-group label {
+        display: block;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: var(--color-on-surface-variant, #45464d);
+        margin-bottom: var(--spacing-unit-1, 0.25rem);
+      }
+
+      .input,
+      .select,
+      .textarea {
+        width: 100%;
+        padding: var(--spacing-unit-2, 0.5rem) var(--spacing-unit-3, 0.75rem);
+        font-family: inherit;
+        font-size: 14px;
+        line-height: 20px;
+        border: 1px solid var(--color-outline-variant, #c6c6cd);
+        border-radius: var(--radius-DEFAULT, 0.125rem);
+        background: var(--color-surface, #ffffff);
+        color: var(--color-on-surface, #191c1e);
+      }
+
+      .input:focus,
+      .select:focus,
+      .textarea:focus {
+        outline: none;
+        border-color: var(--color-on-surface, #191c1e);
+        box-shadow: 0 0 0 2px rgba(25, 28, 30, 0.08);
+      }
+
+      .textarea {
+        min-height: 96px;
+        resize: vertical;
+      }
+
+      .form-actions {
+        display: flex;
+        gap: var(--spacing-unit-3, 0.75rem);
+        margin-top: var(--spacing-unit-6, 1.5rem);
+      }
+
+      .editor-top-actions {
+        margin-top: 0;
+        margin-bottom: var(--spacing-unit-4, 1rem);
+      }
+
+      .validation-message {
+        color: var(--color-on-error-container, #93000a);
+        font-size: 13px;
+        margin-top: var(--spacing-unit-1, 0.25rem);
+      }
+
+      .unsaved-indicator {
+        font-size: 13px;
+        color: var(--color-on-surface-variant, #45464d);
+        margin-bottom: var(--spacing-unit-4, 1rem);
+      }
+    </style>
+  </head>
+  <body>
+    <main data-setfarm-root="record-editor" data-testid="setfarm-app-root" class="app-shell">
+      <header class="app-header">
+        <h1>SignalTile Mini</h1>
+        <nav class="app-nav" aria-label="Primary">
+          <a href="record-operations-signaltile-mini.html" data-action-id="ACT_OPERATIONS">Operations</a>
+          <a href="record-editor-signaltile-mini.html" data-action-id="nav-editor">Editor</a>
+          <a href="index.html#insights" data-action-id="ACT_INSIGHTS">Insights</a>
+          <a href="index.html#support" data-action-id="nav-support">Support</a>
+          <a href="index.html#documentation" data-action-id="nav-documentation">Documentation</a>
+        </nav>
+      </header>
+
+      <section class="app-body">
+        <div id="status-banner" class="status-banner" role="status" aria-live="polite"></div>
+
+        <section class="editor-card" aria-labelledby="editor-title">
+          <h2 id="editor-title">Record Editor</h2>
+          <p id="unsaved-indicator" class="unsaved-indicator" aria-live="polite"></p>
+
+          <div class="form-actions editor-top-actions">
+            <button type="button" class="btn btn-secondary" data-action-id="ACT_CANCEL_EDIT_TOP">Cancel</button>
+            <button type="button" class="btn btn-primary" data-action-id="ACT_SAVE_RECORD_TOP">Save Record</button>
+          </div>
+
+          <form id="record-form" novalidate>
+            <input type="hidden" id="record-id" />
+
+            <div class="form-group">
+              <label for="record-name">Record name</label>
+              <input
+                id="record-name"
+                type="text"
+                class="input"
+                placeholder="Enter record name"
+                required
+                data-action-id="ACT_EDIT_NAME"
+              />
+              <div id="name-validation" class="validation-message" role="alert"></div>
+            </div>
+
+            <div class="form-group">
+              <label for="record-description">Description</label>
+              <textarea
+                id="record-description"
+                class="textarea"
+                placeholder="Brief description of this record..."
+                data-action-id="ACT_EDIT_DESCRIPTION"
+              ></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="record-status">Status</label>
+              <select id="record-status" class="select" data-action-id="ACT_EDIT_STATUS">
+                <option value="ok">OK</option>
+                <option value="warn">Warn</option>
+                <option value="down">Down</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="record-tags">Tags</label>
+              <input
+                id="record-tags"
+                type="text"
+                class="input"
+                placeholder="e.g. prod, database, us-east"
+                data-action-id="ACT_EDIT_TAGS"
+              />
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary" data-action-id="ACT_SAVE_RECORD">Save</button>
+              <button type="button" class="btn btn-secondary" data-action-id="ACT_CANCEL_EDIT">Cancel</button>
+            </div>
+          </form>
+        </section>
+      </section>
+    </main>
+
+    <script src="assets/js/us-002/act_create_record.js" defer></script>
+    <script src="assets/js/us-002/act_save_record.js" defer></script>
+    <script src="assets/js/us-002/act_cancel_edit.js" defer></script>
+    <script>
+      (function () {
+        'use strict';
+
+        function $(selector) { return document.querySelector(selector); }
+
+        var original = null;
+        var isDirty = false;
+
+        function parseParams() {
+          var params = {};
+          var search = window.location.search;
+          if (!search) return params;
+          search.slice(1).split('&').forEach(function (pair) {
+            var parts = pair.split('=');
+            try {
+              var key = decodeURIComponent(parts[0]);
+              var val = decodeURIComponent(parts[1] || '');
+              params[key] = val;
+            } catch (e) {
+              // Ignore malformed parameters
+            }
+          });
+          return params;
+        }
+
+        function markDirty() {
+          isDirty = true;
+          $('#unsaved-indicator').textContent = 'Unsaved changes';
+        }
+
+        function clearDirty() {
+          isDirty = false;
+          $('#unsaved-indicator').textContent = '';
+        }
+
+        function loadRecord() {
+          var params = parseParams();
+          var record = null;
+
+          if (params.mode === 'edit' && params.id && window.SignalTileRecords) {
+            window.SignalTileRecords.selectRecord(params.id);
+            record = window.SignalTileRecords.getSelectedRecord();
+          }
+
+          if (!record && window.SignalTileRecords) {
+            record = window.SignalTileRecords.getSelectedRecord();
+          }
+
+          if (record) {
+            $('#record-id').value = record.id;
+            $('#record-name').value = record.name;
+            $('#record-description').value = record.description || '';
+            $('#record-status').value = record.status;
+            $('#record-tags').value = record.tags || '';
+          } else {
+            $('#record-id').value = '';
+            $('#record-name').value = '';
+            $('#record-description').value = '';
+            $('#record-status').value = 'ok';
+            $('#record-tags').value = '';
+          }
+
+          original = {
+            id: $('#record-id').value,
+            name: $('#record-name').value,
+            description: $('#record-description').value,
+            status: $('#record-status').value,
+            tags: $('#record-tags').value
+          };
+          clearDirty();
+        }
+
+        function validate() {
+          var name = $('#record-name').value.trim();
+          var nameValidation = $('#name-validation');
+          if (!name) {
+            nameValidation.textContent = 'Record name is required.';
+            return false;
+          }
+          nameValidation.textContent = '';
+          return true;
+        }
+
+        function save() {
+          if (!validate()) return false;
+          var data = {
+            id: $('#record-id').value,
+            name: $('#record-name').value.trim(),
+            description: $('#record-description').value.trim(),
+            status: $('#record-status').value,
+            tags: $('#record-tags').value.trim()
+          };
+          var result = window.SignalTileActions.saveRecord(data);
+          clearDirty();
+          renderStatus();
+          return result;
+        }
+
+        function cancel() {
+          if (isDirty && !confirm('You have unsaved changes. Are you sure you want to cancel?')) {
+            return;
+          }
+          window.SignalTileActions.cancelEdit();
+          clearDirty();
+          window.location.href = 'record-operations-signaltile-mini.html';
+        }
+
+        function renderStatus() {
+          var banner = $('#status-banner');
+          if (!window.SignalTileRecords) return;
+          var state = window.SignalTileRecords.getState();
+          if (state.loadError) {
+            banner.textContent = state.loadError;
+            banner.className = 'status-banner status-banner--error';
+          } else {
+            banner.textContent = '';
+            banner.className = 'status-banner';
+          }
+        }
+
+        function bind() {
+          var form = $('#record-form');
+          form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            if (save()) {
+              window.location.href = 'record-operations-signaltile-mini.html';
+            }
+          });
+
+          $('#record-name').addEventListener('input', markDirty);
+          $('#record-description').addEventListener('input', markDirty);
+          $('#record-status').addEventListener('change', markDirty);
+          $('#record-tags').addEventListener('input', markDirty);
+
+          document.body.addEventListener('click', function (event) {
+            var target = event.target.closest('[data-action-id]');
+            var actionId = target && target.getAttribute('data-action-id');
+            if (actionId === 'ACT_CANCEL_EDIT' || actionId === 'ACT_CANCEL_EDIT_TOP') {
+              event.preventDefault();
+              cancel();
+            }
+            if (actionId === 'ACT_SAVE_RECORD_TOP') {
+              event.preventDefault();
+              if (save()) {
+                window.location.href = 'record-operations-signaltile-mini.html';
+              }
+            }
+          });
+        }
+
+        function init() {
+          loadRecord();
+          bind();
+          renderStatus();
+
+          window.app = {
+            getState: function () {
+              return window.SignalTileRecords ? window.SignalTileRecords.getState() : {};
+            },
+            saveRecord: function (data) { return window.SignalTileActions.saveRecord(data); },
+            cancelEdit: function () { return window.SignalTileActions.cancelEdit(); }
+          };
+
+          window.setfarmStaticReady = true;
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+      })();
+    </script>
+  </body>
+</html>
