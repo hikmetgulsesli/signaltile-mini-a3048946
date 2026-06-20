@@ -1,0 +1,597 @@
+[
+  {
+    "screenId": "8db667c582654fbfa4664aeabe774440",
+    "screenTitle": "Record Editor - SignalTile Mini",
+    "deviceType": "DESKTOP",
+    "elements": [
+      {
+        "type": "link",
+        "label": "Operations",
+        "href": "#",
+        "line": 121
+      },
+      {
+        "type": "link",
+        "label": "Editor",
+        "href": "#",
+        "line": 126
+      },
+      {
+        "type": "link",
+        "label": "Insights",
+        "href": "#",
+        "line": 130
+      },
+      {
+        "type": "link",
+        "label": "Support",
+        "href": "#",
+        "line": 136
+      },
+      {
+        "type": "link",
+        "label": "Documentation",
+        "href": "#",
+        "line": 140
+      },
+      {
+        "type": "button",
+        "label": "Cancel",
+        "line": 161
+      },
+      {
+        "type": "button",
+        "label": "Save Record",
+        "line": 162
+      },
+      {
+        "type": "button",
+        "label": "Cancel",
+        "line": 220
+      },
+      {
+        "type": "button",
+        "label": "Save",
+        "line": 221
+      },
+      {
+        "type": "input",
+        "label": "Enter record name",
+        "inputType": "text",
+        "placeholder": "Enter record name",
+        "line": 177
+      },
+      {
+        "type": "input",
+        "label": "Brief description of this record...",
+        "inputType": "textarea",
+        "placeholder": "Brief description of this record...",
+        "line": 186
+      },
+      {
+        "type": "input",
+        "label": "select",
+        "inputType": "select",
+        "line": 200
+      },
+      {
+        "type": "input",
+        "label": "e.g. prod, database, us-east",
+        "inputType": "text",
+        "placeholder": "e.g. prod, database, us-east",
+        "line": 211
+      },
+      {
+        "type": "form",
+        "label": "form",
+        "line": 167
+      }
+    ],
+    "navigation": [
+      {
+        "type": "link",
+        "label": "Operations",
+        "href": "#",
+        "line": 121
+      },
+      {
+        "type": "link",
+        "label": "Editor",
+        "href": "#",
+        "line": 126
+      },
+      {
+        "type": "link",
+        "label": "Insights",
+        "href": "#",
+        "line": 130
+      },
+      {
+        "type": "link",
+        "label": "Support",
+        "href": "#",
+        "line": 136
+      },
+      {
+        "type": "link",
+        "label": "Documentation",
+        "href": "#",
+        "line": 140
+      }
+    ],
+    "buttons": [
+      {
+        "type": "button",
+        "label": "Cancel",
+        "line": 161
+      },
+      {
+        "type": "button",
+        "label": "Save Record",
+        "line": 162
+      },
+      {
+        "type": "button",
+        "label": "Cancel",
+        "line": 220
+      },
+      {
+        "type": "button",
+        "label": "Save",
+        "line": 221
+      }
+    ],
+    "inputs": [
+      {
+        "type": "input",
+        "label": "Enter record name",
+        "inputType": "text",
+        "placeholder": "Enter record name",
+        "line": 177
+      },
+      {
+        "type": "input",
+        "label": "Brief description of this record...",
+        "inputType": "textarea",
+        "placeholder": "Brief description of this record...",
+        "line": 186
+      },
+      {
+        "type": "input",
+        "label": "select",
+        "inputType": "select",
+        "line": 200
+      },
+      {
+        "type": "input",
+        "label": "e.g. prod, database, us-east",
+        "inputType": "text",
+        "placeholder": "e.g. prod, database, us-east",
+        "line": 211
+      }
+    ],
+    "hardcodedData": [],
+    "totalInteractive": 14,
+    "requiresRouter": false,
+    "requiresDragDrop": false
+  },
+  {
+    "screenId": "cc3f7c566a1540c8aee0c268145b0aeb",
+    "screenTitle": "Record Operations - SignalTile Mini",
+    "deviceType": "DESKTOP",
+    "elements": [
+      {
+        "type": "link",
+        "label": "Operations",
+        "href": "#",
+        "line": 123
+      },
+      {
+        "type": "link",
+        "label": "Editor",
+        "href": "#",
+        "line": 127
+      },
+      {
+        "type": "link",
+        "label": "Insights",
+        "href": "#",
+        "line": 131
+      },
+      {
+        "type": "link",
+        "label": "Support",
+        "href": "#",
+        "line": 137
+      },
+      {
+        "type": "link",
+        "label": "Documentation",
+        "href": "#",
+        "line": 141
+      },
+      {
+        "type": "link",
+        "label": "Operations",
+        "href": "#",
+        "line": 157
+      },
+      {
+        "type": "link",
+        "label": "Editor",
+        "href": "#",
+        "line": 158
+      },
+      {
+        "type": "link",
+        "label": "Insights",
+        "href": "#",
+        "line": 159
+      },
+      {
+        "type": "button",
+        "label": "notifications",
+        "line": 162
+      },
+      {
+        "type": "button",
+        "label": "settings",
+        "line": 165
+      },
+      {
+        "type": "button",
+        "label": "CREATE RECORD",
+        "line": 171
+      },
+      {
+        "type": "button",
+        "label": "FILTER",
+        "line": 231
+      },
+      {
+        "type": "button",
+        "label": "sort",
+        "line": 234
+      },
+      {
+        "type": "button",
+        "label": "Edit",
+        "line": 268
+      },
+      {
+        "type": "button",
+        "label": "Cycle",
+        "line": 271
+      },
+      {
+        "type": "button",
+        "label": "Edit",
+        "line": 292
+      },
+      {
+        "type": "button",
+        "label": "Cycle",
+        "line": 295
+      },
+      {
+        "type": "button",
+        "label": "Retry Load",
+        "line": 316
+      },
+      {
+        "type": "button",
+        "label": "Edit",
+        "line": 337
+      },
+      {
+        "type": "button",
+        "label": "Cycle",
+        "line": 340
+      },
+      {
+        "type": "button",
+        "label": "PREV",
+        "line": 351
+      },
+      {
+        "type": "button",
+        "label": "NEXT",
+        "line": 360
+      },
+      {
+        "type": "input",
+        "label": "Search Records...",
+        "inputType": "text",
+        "placeholder": "Search Records...",
+        "line": 153
+      }
+    ],
+    "navigation": [
+      {
+        "type": "link",
+        "label": "Operations",
+        "href": "#",
+        "line": 123
+      },
+      {
+        "type": "link",
+        "label": "Editor",
+        "href": "#",
+        "line": 127
+      },
+      {
+        "type": "link",
+        "label": "Insights",
+        "href": "#",
+        "line": 131
+      },
+      {
+        "type": "link",
+        "label": "Support",
+        "href": "#",
+        "line": 137
+      },
+      {
+        "type": "link",
+        "label": "Documentation",
+        "href": "#",
+        "line": 141
+      },
+      {
+        "type": "link",
+        "label": "Operations",
+        "href": "#",
+        "line": 157
+      },
+      {
+        "type": "link",
+        "label": "Editor",
+        "href": "#",
+        "line": 158
+      },
+      {
+        "type": "link",
+        "label": "Insights",
+        "href": "#",
+        "line": 159
+      }
+    ],
+    "buttons": [
+      {
+        "type": "button",
+        "label": "notifications",
+        "line": 162
+      },
+      {
+        "type": "button",
+        "label": "settings",
+        "line": 165
+      },
+      {
+        "type": "button",
+        "label": "CREATE RECORD",
+        "line": 171
+      },
+      {
+        "type": "button",
+        "label": "FILTER",
+        "line": 231
+      },
+      {
+        "type": "button",
+        "label": "sort",
+        "line": 234
+      },
+      {
+        "type": "button",
+        "label": "Edit",
+        "line": 268
+      },
+      {
+        "type": "button",
+        "label": "Cycle",
+        "line": 271
+      },
+      {
+        "type": "button",
+        "label": "Edit",
+        "line": 292
+      },
+      {
+        "type": "button",
+        "label": "Cycle",
+        "line": 295
+      },
+      {
+        "type": "button",
+        "label": "Retry Load",
+        "line": 316
+      },
+      {
+        "type": "button",
+        "label": "Edit",
+        "line": 337
+      },
+      {
+        "type": "button",
+        "label": "Cycle",
+        "line": 340
+      },
+      {
+        "type": "button",
+        "label": "PREV",
+        "line": 351
+      },
+      {
+        "type": "button",
+        "label": "NEXT",
+        "line": 360
+      }
+    ],
+    "inputs": [
+      {
+        "type": "input",
+        "label": "Search Records...",
+        "inputType": "text",
+        "placeholder": "Search Records...",
+        "line": 153
+      }
+    ],
+    "hardcodedData": [],
+    "totalInteractive": 23,
+    "requiresRouter": false,
+    "requiresDragDrop": false
+  },
+  {
+    "screenId": "9b3e7787c870423ab2bd2d87bdc8435b",
+    "screenTitle": "Insights - SignalTile Mini",
+    "deviceType": "DESKTOP",
+    "elements": [
+      {
+        "type": "link",
+        "label": "Operations",
+        "href": "#",
+        "line": 170
+      },
+      {
+        "type": "link",
+        "label": "Editor",
+        "href": "#",
+        "line": 174
+      },
+      {
+        "type": "link",
+        "label": "Insights",
+        "href": "#",
+        "line": 178
+      },
+      {
+        "type": "link",
+        "label": "Support",
+        "href": "#",
+        "line": 184
+      },
+      {
+        "type": "link",
+        "label": "Documentation",
+        "href": "#",
+        "line": 188
+      },
+      {
+        "type": "link",
+        "label": "Operations",
+        "href": "#",
+        "line": 386
+      },
+      {
+        "type": "link",
+        "label": "Editor",
+        "href": "#",
+        "line": 390
+      },
+      {
+        "type": "link",
+        "label": "Insights",
+        "href": "#",
+        "line": 394
+      },
+      {
+        "type": "button",
+        "label": "Filter",
+        "line": 203
+      },
+      {
+        "type": "button",
+        "label": "Export Summary",
+        "line": 207
+      },
+      {
+        "type": "button",
+        "label": "View Operations",
+        "line": 299
+      },
+      {
+        "type": "button",
+        "label": "more_horiz",
+        "line": 310
+      }
+    ],
+    "navigation": [
+      {
+        "type": "link",
+        "label": "Operations",
+        "href": "#",
+        "line": 170
+      },
+      {
+        "type": "link",
+        "label": "Editor",
+        "href": "#",
+        "line": 174
+      },
+      {
+        "type": "link",
+        "label": "Insights",
+        "href": "#",
+        "line": 178
+      },
+      {
+        "type": "link",
+        "label": "Support",
+        "href": "#",
+        "line": 184
+      },
+      {
+        "type": "link",
+        "label": "Documentation",
+        "href": "#",
+        "line": 188
+      },
+      {
+        "type": "link",
+        "label": "Operations",
+        "href": "#",
+        "line": 386
+      },
+      {
+        "type": "link",
+        "label": "Editor",
+        "href": "#",
+        "line": 390
+      },
+      {
+        "type": "link",
+        "label": "Insights",
+        "href": "#",
+        "line": 394
+      }
+    ],
+    "buttons": [
+      {
+        "type": "button",
+        "label": "Filter",
+        "line": 203
+      },
+      {
+        "type": "button",
+        "label": "Export Summary",
+        "line": 207
+      },
+      {
+        "type": "button",
+        "label": "View Operations",
+        "line": 299
+      },
+      {
+        "type": "button",
+        "label": "more_horiz",
+        "line": 310
+      }
+    ],
+    "inputs": [],
+    "hardcodedData": [],
+    "totalInteractive": 12,
+    "requiresRouter": false,
+    "requiresDragDrop": false
+  }
+]
