@@ -105,14 +105,18 @@
       state.activeSurface = savedState.activeSurface || state.activeSurface;
       state.selectedEntity = savedState.selectedEntity || null;
       state.activePanel = savedState.activePanel || state.activePanel;
-      state.tiles = savedState.tiles.map(function (tile) {
-        return {
-          id: tile.id,
-          label: tile.label,
-          status: tile.status || 'ok',
-          updatedAt: tile.updatedAt || Date.now()
-        };
-      });
+      state.tiles = savedState.tiles
+        .filter(function (tile) {
+          return tile && typeof tile === 'object' && tile.id && tile.label;
+        })
+        .map(function (tile) {
+          return {
+            id: tile.id,
+            label: tile.label,
+            status: tile.status || 'ok',
+            updatedAt: tile.updatedAt || Date.now()
+          };
+        });
       state.lastError = null;
       updateCounts();
       return true;

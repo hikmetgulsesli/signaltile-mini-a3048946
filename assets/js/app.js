@@ -55,14 +55,17 @@
     var current = state.getState();
 
     panel.innerHTML = current.tiles.map(function (tile) {
+      var escapedId = escapeHtml(tile.id);
+      var escapedLabel = escapeHtml(tile.label);
+      var escapedStatus = escapeHtml(tile.status);
       return (
-        '<article class="signal-tile status-' + tile.status + '" data-tile-id="' + tile.id + '">' +
+        '<article class="signal-tile status-' + escapedStatus + '" data-tile-id="' + escapedId + '">' +
           '<header class="tile-header">' +
             '<span class="status-indicator" aria-hidden="true"></span>' +
-            '<h2 class="tile-label">' + escapeHtml(tile.label) + '</h2>' +
+            '<h2 class="tile-label">' + escapedLabel + '</h2>' +
           '</header>' +
-          '<p class="tile-status">' + escapeHtml(tile.status) + '</p>' +
-          '<button type="button" class="btn btn-secondary" data-action-id="cycle-' + tile.id + '" onclick="window.app && window.app.cycleTile(\'' + tile.id + '\')">Cycle</button>' +
+          '<p class="tile-status">' + escapedStatus + '</p>' +
+          '<button type="button" class="btn btn-secondary" data-action-id="cycle-' + escapedId + '">Cycle</button>' +
         '</article>'
       );
     }).join('');
