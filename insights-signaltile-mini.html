@@ -293,22 +293,44 @@
           }
 
           var tbody = $('#activity-body');
+          tbody.textContent = '';
           if (filtered.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="4" class="empty-state">No records match the current filter.</td></tr>';
+            var emptyTr = document.createElement('tr');
+            var emptyTd = document.createElement('td');
+            emptyTd.setAttribute('colspan', '4');
+            emptyTd.className = 'empty-state';
+            emptyTd.textContent = 'No records match the current filter.';
+            emptyTr.appendChild(emptyTd);
+            tbody.appendChild(emptyTr);
           } else {
             var sorted = filtered.slice().sort(function (a, b) {
               return (b.updatedAt || 0) - (a.updatedAt || 0);
             });
-            tbody.innerHTML = sorted.map(function (r) {
-              return (
-                '<tr data-record-id="' + escapeHtml(r.id) + '">' +
-                  '<td>' + escapeHtml(r.name) + '</td>' +
-                  '<td><span class="status-badge status-' + escapeHtml(r.status) + '">' + escapeHtml(r.status) + '</span></td>' +
-                  '<td>' + escapeHtml(r.tags || '') + '</td>' +
-                  '<td>' + escapeHtml(formatDate(r.updatedAt)) + '</td>' +
-                '</tr>'
-              );
-            }).join('');
+            sorted.forEach(function (r) {
+              var tr = document.createElement('tr');
+              tr.setAttribute('data-record-id', r.id);
+
+              var tdName = document.createElement('td');
+              tdName.textContent = r.name || '';
+              tr.appendChild(tdName);
+
+              var tdStatus = document.createElement('td');
+              var statusSpan = document.createElement('span');
+              statusSpan.className = 'status-badge status-' + (r.status || '');
+              statusSpan.textContent = r.status || '';
+              tdStatus.appendChild(statusSpan);
+              tr.appendChild(tdStatus);
+
+              var tdTags = document.createElement('td');
+              tdTags.textContent = r.tags || '';
+              tr.appendChild(tdTags);
+
+              var tdUpdated = document.createElement('td');
+              tdUpdated.textContent = formatDate(r.updatedAt);
+              tr.appendChild(tdUpdated);
+
+              tbody.appendChild(tr);
+            });
           }
         }
 
